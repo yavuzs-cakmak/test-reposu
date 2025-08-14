@@ -9,69 +9,69 @@ import {
 } from '@mui/material';
 
 function FaultRequestForm() {
-  const [sayfa, setSayfa] = useState(1);
+  const [page, setPage] = useState(1);
 
   // Sayfa 1: İletişim Bilgileri
-  const [ad, setAd] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [telefon, setTelefon] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const iletisimAlanlari = [
-    { label: "Ad Soyad", value: ad, onChange: (e) => setAd(e.target.value) },
+  const communicationAreas = [
+    { label: "Ad Soyad", value: name, onChange: (e) => setName(e.target.value) },
     { label: "E-posta", value: email, onChange: (e) => setEmail(e.target.value), type: "email" },
-    { label: "Telefon Numarası", value: telefon, onChange: (e) => setTelefon(e.target.value), type: "tel", placeholder: "05xx xxx xx xx" },
+    { label: "Telefon Numarası", value: phone, onChange: (e) => setPhone(e.target.value), type: "tel", placeholder: "05xx xxx xx xx" },
   ];
 
   // Sayfa 2: Araç Bilgileri
-  const [sasiNo, setSasiNo] = useState("");
-  const [plaka, setPlaka] = useState("");
-  const [km, setKm] = useState("");
-  const [arizaAciklama, setArizaAciklama] = useState("");
-  const [bakimIstiyor,] = useState(false);
-  const [kvkkOnay, setKvkkOnay] = useState(false);
+  const [vehicleidNo, setVehicleidNo] = useState("");
+  const [plate, setPlate] = useState("");
+  const [kilometer, setKilometer] = useState("");
+  const [faultDescription, setFaultDescription] = useState("");
+  const [maintenanceRequired, ] = useState(false);
+  const [kvkkApproval, setKvkkApproval] = useState(false);
 
-  const aracBilgileriAlanlari = [
-    { label: "Şasi No", value: sasiNo, onChange: (e) => setSasiNo(e.target.value) },
-    { label: "Plaka", value: plaka, onChange: (e) => setPlaka(e.target.value) },
-    { label: "Kilometre", value: km, onChange: (e) => setKm(e.target.value), type: "number" },
-    { label: "Arıza Açıklaması", value: arizaAciklama, onChange: (e) => setArizaAciklama(e.target.value), multiline: true, rows: 3 },
+  const vehicleInformationFields = [
+    { label: "Şasi No", value: vehicleidNo, onChange: (e) => setVehicleidNo(e.target.value) },
+    { label: "Plaka", value: plate, onChange: (e) => setPlate(e.target.value) },
+    { label: "Kilometre", value: kilometer, onChange: (e) => setKilometer(e.target.value), type: "number" },
+    { label: "Arıza Açıklaması", value: faultDescription, onChange: (e) => setFaultDescription(e.target.value), multiline: true, rows: 3 },
   ];
 
   // Sayfa 3: Bayi Seçimi
-  const [secilenBayi, setSecilenBayi] = useState("");
-  const bayiListesi = [
+  const [selectedDealer, setSelectedDealer] = useState("");
+  const dealerList = [
     "Renault Kartal",
     "Renault Kadıköy",
     "Renault Ümraniye",
   ];
 
-  const ileri = () => setSayfa((prev) => Math.min(prev + 1, 4));
-  const geri = () => setSayfa((prev) => Math.max(prev - 1, 1));
+  const forward = () => setPage((prev) => Math.min(prev + 1, 4));
+  const back = () => setPage((prev) => Math.max(prev - 1, 1));
 
   const handleTalepGonder = () => {
-    if (!kvkkOnay) {
+    if (!kvkkApproval) {
       alert("Lütfen KVKK sözleşmesini kabul ediniz.");
       return;
     }
 
-    if (!secilenBayi) {
+    if (!selectedDealer) {
       alert("Lütfen bir Renault bayisi seçiniz.");
       return;
     }
 
     alert(`Talep gönderildi:
-Ad: ${ad}
+Ad: ${name}
 E-posta: ${email}
-Telefon: ${telefon}
-Şasi No: ${sasiNo}
-Plaka: ${plaka}
-KM: ${km}
-Arıza Açıklaması: ${arizaAciklama}
-Bakım Talebi: ${bakimIstiyor ? "Evet" : "Hayır"}
+Telefon: ${phone}
+Şasi No: ${vehicleidNo}
+Plaka: ${plate}
+KM: ${kilometer}
+Arıza Açıklaması: ${faultDescription}
+Bakım Talebi: ${maintenanceRequired ? "Evet" : "Hayır"}
 KVKK Onayı: Kabul Edildi
-Seçilen Bayi: ${secilenBayi}`);
+Seçilen Bayi: ${selectedDealer}`);
 
-    setSayfa(4);
+    setPage(4);
   };
 
   return (
@@ -89,39 +89,39 @@ Seçilen Bayi: ${secilenBayi}`);
         boxShadow: 2,
       }}
     >
-      {sayfa === 1 && (
+      {page === 1 && (
         <>
           <h2>İletişim Bilgileri</h2>
-          {iletisimAlanlari.map((alan, index) => (
+          {communicationAreas.map((area, index) => (
             <TextField
               key={index}
-              label={alan.label}
-              value={alan.value}
-              onChange={alan.onChange}
-              type={alan.type || "text"}
-              placeholder={alan.placeholder || ""}
+              label={area.label}
+              value={area.value}
+              onChange={area.onChange}
+              type={area.type || "text"}
+              placeholder={area.placeholder || ""}
               variant="outlined"
               required
             />
           ))}
-          <Button variant="contained" color="primary" onClick={ileri}>
+          <Button variant="contained" color="primary" onClick={forward}>
             Devam Et
           </Button>
         </>
       )}
 
-      {sayfa === 2 && (
+      {page === 2 && (
         <>
           <h2>Araç Bilgileri</h2>
-          {aracBilgileriAlanlari.map((alan, index) => (
+          {vehicleInformationFields.map((field, index) => (
             <TextField
               key={index}
-              label={alan.label}
-              value={alan.value}
-              onChange={alan.onChange}
-              type={alan.type || "text"}
-              multiline={alan.multiline || false}
-              rows={alan.rows || 1}
+              label={field.label}
+              value={field.value}
+              onChange={field.onChange}
+              type={field.type || "text"}
+              multiline={field.multiline || false}
+              rows={field.rows || 1}
               variant="outlined"
               required
             />
@@ -130,43 +130,43 @@ Seçilen Bayi: ${secilenBayi}`);
           <FormControlLabel
             control={
               <Checkbox
-                checked={kvkkOnay}
-                onChange={(e) => setKvkkOnay(e.target.checked)}
+                checked={kvkkApproval}
+                onChange={(e) => setKvkkApproval(e.target.checked)}
               />
             }
             label="KVKK sözleşmesini okudum ve kabul ediyorum"
           />
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button variant="outlined" onClick={geri}>
+            <Button variant="outlined" onClick={back}>
               Geri
             </Button>
-            <Button variant="contained" color="primary" onClick={ileri}>
+            <Button variant="contained" color="primary" onClick={forward}>
               Devam Et
             </Button>
           </Box>
         </>
       )}
 
-      {sayfa === 3 && (
+      {page === 3 && (
         <>
           <h2>Renault Bayi Seçimi</h2>
           <TextField
             select
             label="Bayi Seçimi"
-            value={secilenBayi}
-            onChange={(e) => setSecilenBayi(e.target.value)}
+            value={selectedDealer}
+            onChange={(e) => setSelectedDealer(e.target.value)}
             SelectProps={{ native: true }}
             required
           >
             <option value="">Bayi seçiniz</option>
-            {bayiListesi.map((bayi, index) => (
-              <option key={index} value={bayi}>
-                {bayi}
+            {dealerList.map((dealer, index) => (
+              <option key={index} value={dealer}>
+                {dealer}
               </option>
             ))}
           </TextField>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button variant="outlined" onClick={geri}>
+            <Button variant="outlined" onClick={back}>
               Geri
             </Button>
             <Button variant="contained" color="primary" onClick={handleTalepGonder}>
@@ -176,12 +176,12 @@ Seçilen Bayi: ${secilenBayi}`);
         </>
       )}
 
-      {sayfa === 4 && (
+      {page === 4 && (
         <>
           <h2>Talebiniz Başarıyla Alındı!</h2>
-          <p>Teşekkür ederiz, <strong>{ad}</strong>.</p>
+          <p>Teşekkür ederiz, <strong>{name}</strong>.</p>
           <p>Renault yetkilileri sizinle en kısa sürede iletişime geçecek.</p>
-          <p><strong>Seçilen Bayi:</strong> {secilenBayi}</p>
+          <p><strong>Seçilen Bayi:</strong> {selectedDealer}</p>
         </>
       )}
     </Box>
