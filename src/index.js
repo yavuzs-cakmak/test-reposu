@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDom from "react-dom/client"
-import App from "./pages/App.jsx";
+import App from "./pages/Linked.jsx";
 import "./index.css"
 import { BrowserRouter } from "react-router-dom"
 

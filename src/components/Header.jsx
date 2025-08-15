@@ -8,6 +8,7 @@ function Header() {
       <Link className='link' to="/about">Hakkımızda</Link>
       <Link className='link' to="/products">Ürünler</Link>
       <Link className='link' to="/contacts">İletişim</Link>
+      <Link className="link" to="/fault">Arıza Talep Formu</Link>
     </div>
   )
 }

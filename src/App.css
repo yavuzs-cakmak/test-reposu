@@ -21,3 +21,7 @@ body {
   margin: 0 2px;
   font-weight: bold;
 }
+.layout-container {
+  display: flex;
+  flex-direction: column;
+}

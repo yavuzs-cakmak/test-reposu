@@ -1,12 +1,14 @@
 
 import './App.css';
+import Layout from './Linked.jsx';
 import FaultRequestForm from './pages/FaultRequestForm';
 
 
 function App() {
   return (
-    <div className="App">
+    <div className="layout-container">
       <FaultRequestForm />
+      <Layout />
     </div>
   );
 }
