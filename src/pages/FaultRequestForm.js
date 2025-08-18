@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DealerMap from './DealerMap';
 import Bakim from './bakim';
 import {
   Box,
@@ -147,41 +148,30 @@ Seçilen Bayi: ${selectedDealer}`);
         </>
       )}
 
-      {page === 3 && (
-        <>
-          <h2>Renault Bayi Seçimi</h2>
-          <TextField
-            select
-            label="Bayi Seçimi"
-            value={selectedDealer}
-            onChange={(e) => setSelectedDealer(e.target.value)}
-            SelectProps={{ native: true }}
-            required
-          >
-            <option value="">Bayi seçiniz</option>
-            {dealerList.map((dealer, index) => (
-              <option key={index} value={dealer}>
-                {dealer}
-              </option>
-            ))}
-          </TextField>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button variant="outlined" onClick={back}>
-              Geri
-            </Button>
-            <Button variant="contained" color="primary" onClick={handleTalepGonder}>
-              Talebi Gönder
-            </Button>
-          </Box>
-        </>
-      )}
+{page === 3 && (
+  <>
+    <h2>Renault Bayi Seçimi</h2>
+    <DealerMap
+      selectedDealer={selectedDealer}
+      setSelectedDealer={setSelectedDealer}
+    />
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+      <Button variant="outlined" onClick={back}>
+        Geri
+      </Button>
+      <Button variant="contained" color="primary" onClick={handleTalepGonder}>
+        Talebi Gönder
+      </Button>
+    </Box>
+  </>
+)}
 
       {page === 4 && (
         <>
           <h2>Talebiniz Başarıyla Alındı!</h2>
           <p>Teşekkür ederiz, <strong>{name}</strong>.</p>
           <p>Renault yetkilileri sizinle en kısa sürede iletişime geçecek.</p>
-          <p><strong>Seçilen Bayi:</strong> {selectedDealer}</p>
+          <p><strong>Seçilen Servis Bayisi:</strong> {selectedDealer}</p>
         </>
       )}
     </Box>
