@@ -2,7 +2,7 @@
 import React from 'react';
 import Layout from './Linked.jsx';
 import FaultRequestForm from './pages/FaultRequestForm';
-import DealerMap from './pages/DealerMap.js';
+
 
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
     <div className="layout-container">
       <FaultRequestForm />
       <Layout />
-      <DealerMap />
+    
     </div>
   );
 }

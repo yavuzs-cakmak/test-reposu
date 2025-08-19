@@ -8,6 +8,7 @@ import Contacts from "./Contacts";
 import NotFoundPages from "./NotFoundPages";
 import Header from "../components/Header";
 import FaultRequestForm from "./FaultRequestForm";
+import DealerMap from "./DealerMap";
 
 function Layout() {
   return (
@@ -21,6 +22,7 @@ function Layout() {
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/fault" element={<FaultRequestForm />} />
         <Route path="/*" element={<NotFoundPages />} />
+         <Route path="/dealer-map" element={<DealerMap />} /> 
       </Routes>
     </div>
   );
