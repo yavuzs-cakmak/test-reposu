@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import DealerMap from './DealerMap';
 import Bakim from './bakim';
@@ -8,6 +9,11 @@ import {
   Checkbox,
   FormControlLabel,
 } from '@mui/material';
+  const nameRegex = /^([a-zA-ZğüşıöçĞÜŞİÖÇ]{2,20})(\s[a-zA-ZğüşıöçĞÜŞİÖÇ]{2,20}){1,3}$/;
+  const emailRegex = /^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,10}$/;
+  const sasiNoRegex = /^[A-Z0-9]{17}$/;
+  const plateRegex = /^(0[1-9]|[1-7][0-9]|8[01])\s[A-ZÇŞÜÖİĞ]{1,3}\s\d{1,4}$/;
+  const phoneRegex = /^\+90\s\d{3}\s\d{3}\s\d{2}\s\d{2}$/;
 
 function FaultRequestForm() {
   const [page, setPage] = useState(1);
@@ -93,18 +99,36 @@ Seçilen Bayi: ${selectedDealer}`);
       {page === 1 && (
         <>
           <h2>İletişim Bilgileri</h2>
-          {communicationAreas.map((area, index) => (
-            <TextField
-              key={index}
-              label={area.label}
-              value={area.value}
-              onChange={area.onChange}
-              type={area.type || "text"}
-              placeholder={area.placeholder || ""}
-              variant="outlined"
-              required
-            />
-          ))}
+          <TextField
+            label="Ad Soyad"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            error={name !== "" && !nameRegex.test(name)}
+            helperText={name !== "" && !nameRegex.test(name) ? "Geçersiz ad soyad" : ""}
+            variant="outlined"
+            required
+          />
+          <TextField
+            label="E-posta"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            error={email !== "" && !emailRegex.test(email)}
+            helperText={email !== "" && !emailRegex.test(email) ? "Geçersiz e-posta" : ""}
+            type="email"
+            variant="outlined"
+            required
+          />
+          <TextField
+            label="Telefon Numarası"
+            value={phone}
+            onChange={e => setPhone(e.target.value)}
+            error={phone !== "" && !phoneRegex.test(phone)}
+            helperText={phone !== "" && !phoneRegex.test(phone) ? "Geçersiz telefon" : ""}
+            type="tel"
+            placeholder="+90 xxx xxx xx xx"
+            variant="outlined"
+            required
+          />
           <Button variant="contained" color="primary" onClick={forward}>
             Devam Et
           </Button>
@@ -114,19 +138,41 @@ Seçilen Bayi: ${selectedDealer}`);
       {page === 2 && (
         <>
           <h2>Araç Bilgileri</h2>
-          {vehicleInformationFields.map((field, index) => (
-            <TextField
-              key={index}
-              label={field.label}
-              value={field.value}
-              onChange={field.onChange}
-              type={field.type || "text"}
-              multiline={field.multiline || false}
-              rows={field.rows || 1}
-              variant="outlined"
-              required
-            />
-          ))}
+          <TextField
+            label="Şasi No"
+            value={vehicleidNo}
+            onChange={e => setVehicleidNo(e.target.value)}
+            error={vehicleidNo !== "" && !sasiNoRegex.test(vehicleidNo)}
+            helperText={vehicleidNo !== "" && !sasiNoRegex.test(vehicleidNo) ? "Geçersiz şasi no" : ""}
+            variant="outlined"
+            required
+          />
+          <TextField
+            label="Plaka"
+            value={plate}
+            onChange={e => setPlate(e.target.value)}
+            error={plate !== "" && !plateRegex.test(plate)}
+            helperText={plate !== "" && !plateRegex.test(plate) ? "Geçersiz plaka" : ""}
+            variant="outlined"
+            required
+          />
+          <TextField
+            label="Kilometre"
+            value={kilometer}
+            onChange={e => setKilometer(e.target.value)}
+            type="number"
+            variant="outlined"
+            required
+          />
+          <TextField
+            label="Arıza Açıklaması"
+            value={faultDescription}
+            onChange={e => setFaultDescription(e.target.value)}
+            multiline
+            rows={3}
+            variant="outlined"
+            required
+          />
           <Bakim />
           <FormControlLabel
             control={
