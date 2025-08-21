@@ -22,12 +22,12 @@ function FaultRequestForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const isPage1Valid =
+  nameRegex.test(name) && name.trim() !== "" &&
+  emailRegex.test(email) && email.trim() !== "" &&
+  phoneRegex.test(phone) && phone.trim() !== "";
 
-  const communicationAreas = [
-    { label: "Ad Soyad", value: name, onChange: (e) => setName(e.target.value) },
-    { label: "E-posta", value: email, onChange: (e) => setEmail(e.target.value), type: "email" },
-    { label: "Telefon Numarası", value: phone, onChange: (e) => setPhone(e.target.value), type: "tel", placeholder: "05xx xxx xx xx" },
-  ];
+ 
 
   // Sayfa 2: Araç Bilgileri
   const [vehicleidNo, setVehicleidNo] = useState("");
@@ -36,21 +36,17 @@ function FaultRequestForm() {
   const [faultDescription, setFaultDescription] = useState("");
   const [maintenanceRequired, ] = useState(false);
   const [kvkkApproval, setKvkkApproval] = useState(false);
+  const isPage2Valid =
+  sasiNoRegex.test(vehicleidNo) && vehicleidNo.trim() !== "" &&
+  plateRegex.test(plate) && plate.trim() !== "" &&
+  kilometer.trim() !== "" &&
+  faultDescription.trim() !== "";
 
-  const vehicleInformationFields = [
-    { label: "Şasi No", value: vehicleidNo, onChange: (e) => setVehicleidNo(e.target.value) },
-    { label: "Plaka", value: plate, onChange: (e) => setPlate(e.target.value) },
-    { label: "Kilometre", value: kilometer, onChange: (e) => setKilometer(e.target.value), type: "number" },
-    { label: "Arıza Açıklaması", value: faultDescription, onChange: (e) => setFaultDescription(e.target.value), multiline: true, rows: 3 },
-  ];
+  
 
   // Sayfa 3: Bayi Seçimi
   const [selectedDealer, setSelectedDealer] = useState("");
-  const dealerList = [
-    "Renault Kartal",
-    "Renault Kadıköy",
-    "Renault Ümraniye",
-  ];
+
 
   const forward = () => setPage((prev) => Math.min(prev + 1, 4));
   const back = () => setPage((prev) => Math.max(prev - 1, 1));
@@ -129,9 +125,9 @@ Seçilen Bayi: ${selectedDealer}`);
             variant="outlined"
             required
           />
-          <Button variant="contained" color="primary" onClick={forward}>
-            Devam Et
-          </Button>
+         <Button variant="contained" color="primary" onClick={forward} disabled={!isPage1Valid}>
+  Devam Et
+</Button>
         </>
       )}
 
@@ -187,9 +183,9 @@ Seçilen Bayi: ${selectedDealer}`);
             <Button variant="outlined" onClick={back}>
               Geri
             </Button>
-            <Button variant="contained" color="primary" onClick={forward}>
-              Devam Et
-            </Button>
+            <Button variant="contained" color="primary" onClick={forward} disabled={!isPage2Valid}>
+  Devam Et
+</Button>
           </Box>
         </>
       )}
