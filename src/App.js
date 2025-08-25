@@ -1,16 +1,17 @@
+import Layout from "./pages/Linked";
 
-import React from 'react';
-import Layout from './Linked.jsx';
-import FaultRequestForm from './pages/FaultRequestForm';
 
 
 
 function App() {
   return (
-    <div className="layout-container">
-      <FaultRequestForm />
-      <Layout />
-    
+    <div className="page-wrapper">
+      
+      <main className="content">
+       
+        <Layout /> 
+      </main>
+     
     </div>
   );
 }

@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
+    
     <div className="header">
+      <img src="/renaLogo.png" alt="Logo" className="logo" style={{ width: '40px', height: 'auto' }} />
       <Link className='link' to="/">Anasayfa</Link>
       <Link className='link' to="/about">Hakkımızda</Link>
       <Link className='link' to="/products">Ürünler</Link>
